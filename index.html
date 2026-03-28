@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>START AIチーム ダッシュボード</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Helvetica Neue',Arial,'Hiragino Kaku Gothic ProN',sans-serif;background:linear-gradient(135deg,#0f172a,#1e293b);min-height:100vh;padding:24px 16px;color:#e2e8f0}
+
+/* header */
+.hdr{text-align:center;margin-bottom:24px}
+.hdr h1{font-size:24px;font-weight:700;color:#f8fafc;letter-spacing:2px}
+.hdr .sub{font-size:12px;color:#94a3b8;margin-top:2px}
+.updated{display:inline-block;margin-top:8px;padding:5px 14px;background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.25);border-radius:20px;font-size:11px;color:#22c55e}
+.pulse{animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+/* stats */
+.stats{display:flex;justify-content:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.sc{background:#1e293b;border:1px solid #334155;border-radius:12px;padding:14px 20px;text-align:center;min-width:100px}
+.sc-n{font-size:28px;font-weight:700;color:#f8fafc}
+.sc-l{font-size:10px;color:#64748b;margin-top:1px;letter-spacing:1px}
+.sc-highlight .sc-n{color:#22c55e}
+.sc-warn .sc-n{color:#f59e0b}
+.sc-danger .sc-n{color:#ef4444}
+
+/* top */
+.top{display:flex;justify-content:center;gap:14px;margin-bottom:14px;flex-wrap:wrap}
+.top-card{padding:14px 24px;border-radius:12px;text-align:center}
+.top-owner{background:linear-gradient(135deg,#b45309,#d97706);box-shadow:0 4px 16px rgba(217,119,6,.25)}
+.top-shin{background:linear-gradient(135deg,#7c3aed,#6d28d9);box-shadow:0 4px 16px rgba(124,58,237,.25)}
+.top-role{font-size:9px;color:rgba(255,255,255,.65);text-transform:uppercase;letter-spacing:2px;margin-bottom:1px}
+.top-name{font-size:18px;font-weight:700;color:#fff}
+.top-desc{font-size:10px;color:rgba(255,255,255,.6);margin-top:2px}
+.conn{width:2px;height:16px;background:#475569;margin:0 auto}
+
+/* layout */
+.main{display:grid;grid-template-columns:1fr 260px;gap:16px;max-width:1500px;margin:0 auto}
+@media(max-width:1000px){.main{grid-template-columns:1fr}}
+
+/* teams */
+.teams{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+@media(max-width:800px){.teams{grid-template-columns:1fr}}
+.team{background:#1e293b;border-radius:14px;overflow:hidden;border:1px solid #334155;box-shadow:0 4px 12px rgba(0,0,0,.25)}
+.t-head{padding:16px;text-align:center}
+.t-label{font-size:11px;font-weight:600;letter-spacing:2px;color:rgba(255,255,255,.7);margin-bottom:6px}
+.t-donut{margin:4px auto}
+.t-eta{font-size:12px;margin-bottom:8px}
+.t-leader{margin-bottom:2px}
+.t-leader-name{font-size:16px;font-weight:700;color:#fff;background:rgba(255,255,255,.15);padding:4px 16px;border-radius:6px;display:inline-block}
+.t-leader-role{font-size:9px;color:rgba(255,255,255,.5);margin-left:4px}
+.t-leader-task{font-size:11px;color:rgba(255,255,255,.75);margin-top:4px}
+.t-leader-meta{margin-top:6px}
+
+/* members */
+.members{padding:10px}
+.member{display:flex;align-items:flex-start;padding:8px;border-radius:7px;margin-bottom:5px;background:#0f172a;border:1px solid #1e293b;transition:all .15s}
+.member:hover{background:#162032;border-color:#334155;transform:translateX(3px)}
+.new-member{border:1px dashed #475569;background:transparent}
+.m-icon{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;margin-right:8px;flex-shrink:0;margin-top:1px}
+.m-body{flex:1;min-width:0}
+.m-top{display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+.m-name{font-size:12px;font-weight:600;color:#e2e8f0}
+.m-task{font-size:10px;color:#94a3b8;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.m-prow{display:flex;align-items:center;gap:5px;margin-top:3px}
+.m-update{font-size:9px;color:#475569;margin-left:auto}
+.blocker{font-size:9px;color:#f87171;margin-top:2px;padding:1px 5px;background:rgba(239,68,68,.1);border-radius:3px;display:inline-block}
+
+/* badge */
+.badge{display:inline-block;padding:1px 7px;border-radius:8px;font-size:9px;font-weight:600;color:var(--bc);background:color-mix(in srgb,var(--bc) 15%,transparent)}
+
+/* eta */
+.eta{font-size:9px;font-weight:600;padding:1px 6px;border-radius:6px}
+.eta-soon{color:#22c55e;background:rgba(34,197,94,.12)}
+.eta-later{color:#f59e0b;background:rgba(245,158,11,.12)}
+.eta-unknown{color:#64748b;background:rgba(100,116,139,.12)}
+.eta-done{color:#3b82f6;background:rgba(59,130,246,.15)}
+
+/* progress bar */
+.pbar{flex:1;height:5px;background:#334155;border-radius:3px;overflow:hidden;max-width:100px}
+.pfill{height:100%;border-radius:3px;transition:width .4s}
+.ptxt{font-size:10px;font-weight:600;color:#94a3b8;min-width:26px}
+
+/* donut */
+.donut-ring{transition:stroke-dashoffset .6s ease}
+
+/* sidebar */
+.sidebar{display:flex;flex-direction:column;gap:14px}
+.panel{background:#1e293b;border:1px solid #334155;border-radius:12px;padding:14px;overflow:hidden}
+.panel-title{font-size:12px;font-weight:700;color:#94a3b8;letter-spacing:1px;margin-bottom:10px;text-transform:uppercase}
+
+/* overall donut */
+.overall{text-align:center}
+.overall-label{font-size:11px;color:#64748b;margin-top:4px}
+.overall-eta{font-size:14px;font-weight:700;color:#f59e0b;margin-top:6px}
+.overall-eta-sub{font-size:10px;color:#64748b}
+
+/* team bars */
+.tbar{margin-bottom:10px}
+.tbar-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:3px}
+.tbar-name{font-size:11px;font-weight:600;color:#e2e8f0}
+.tbar-eta{font-size:10px;color:#94a3b8}
+.tbar-bar{height:8px;background:#0f172a;border-radius:4px;overflow:hidden}
+.tbar-fill{height:100%;border-radius:4px;transition:width .4s}
+.tbar-pct{font-size:10px;color:#64748b;margin-top:1px;text-align:right}
+
+/* activity */
+.log-item{display:flex;gap:6px;padding:5px 0;border-bottom:1px solid #1e293b;font-size:10px;align-items:flex-start}
+.log-item:last-child{border-bottom:none}
+.log-time{color:#64748b;min-width:52px;flex-shrink:0}
+.log-who{color:#f8fafc;font-weight:600;min-width:32px;flex-shrink:0}
+.log-action{color:#94a3b8;flex:1}
+
+.footer{text-align:center;font-size:10px;color:#475569;margin-top:20px}
+</style></head><body>
+
+<div class="hdr">
+  <h1>START合同会社 AIチーム ダッシュボード</h1>
+  <p class="sub">4事業体 × 責任者体制 — リアルタイム進捗管理</p>
+  <div class="updated"><span class="pulse">●</span> 最終更新: 2026-03-28 09:45</div>
+</div>
+
+<div class="stats">
+  <div class="sc"><div class="sc-n">17</div><div class="sc-l">稼働メンバー</div></div>
+  <div class="sc sc-highlight"><div class="sc-n">9</div><div class="sc-l">作業中</div></div>
+  <div class="sc "><div class="sc-n">0</div><div class="sc-l">ブロック</div></div>
+  <div class="sc"><div class="sc-n">23%</div><div class="sc-l">平均進捗</div></div>
+  <div class="sc sc-warn"><div class="sc-n">3時間</div><div class="sc-l">最長残り時間</div></div>
+</div>
+
+<div class="top">
+  <div class="top-card top-owner"><div class="top-role">代表</div><div class="top-name">翔伍さん</div></div>
+  <div class="top-card top-shin"><div class="top-role">総指揮</div><div class="top-name">シン</div><div class="top-desc">品質チェック・コーチング・4責任者への指示</div></div>
+</div>
+<div class="conn"></div>
+
+<div class="main">
+  <div class="teams"><div class="team">
+    <div class="t-head" style="background:linear-gradient(135deg,#1e40af,#2563eb)">
+      <div class="t-label">TEAM 01 — LEC</div>
+      <div class="t-donut"><svg width="80" height="80" viewBox="0 0 80 80">
+    <circle cx="40" cy="40" r="34" fill="none" stroke="#1e293b" stroke-width="8"/>
+    <circle cx="40" cy="40" r="34" fill="none" stroke="rgba(255,255,255,0.9)" stroke-width="8" stroke-dasharray="213.62830044410595" stroke-dashoffset="136.72211228422782" stroke-linecap="round" transform="rotate(-90 40 40)" class="donut-ring"/>
+    <text x="40" y="44" text-anchor="middle" fill="#f8fafc" font-size="16" font-weight="700">36%</text>
+  </svg></div>
+      <div class="t-eta">全完了まで <span class="eta eta-later">あと3時間</span></div>
+      <div class="t-leader">
+        <span class="t-leader-name">ヨウ</span>
+        <span class="t-leader-role">責任者</span>
+      </div>
+      <div class="t-leader-task">全員への指示出し・進捗管理</div>
+      <div class="t-leader-meta"><span class="badge" style="--bc:#22c55e">作業中</span> <span class="eta eta-later">あと2時間</span></div>
+    </div>
+    <div class="members"><div class="member ">
+      <div class="m-icon" style="background:#2563eb">ユ</div>
+      <div class="m-body">
+        <div class="m-top"><span class="m-name">ユウ</span><span class="badge" style="--bc:#22c55e">作業中</span><span class="eta eta-later">あと3時間</span></div>
+        <div class="m-task">契約一覧タブをソースに広告経由タブの同期実装</div>
+        <div class="m-prow"><div class="pbar"><div class="pfill" style="width:20%;background:#2563eb"></div></div><span class="ptxt">20%</span><span class="m-update">09:00</span></div>
+        
+      </div>
+    </div><div class="member ">
+      <div class="m-icon" style="background:#2563eb">リ</div>
+      <div class="m-body">
+        <div class="m-top"><span class="m-name">リク</span><span class="badge" style="--bc:#22c55e">作業中</span><span class="eta eta-soon">あと45分</span></div>
+        <div class="m-task">freeeサイン連携テスト</div>
+        <div class="m-prow"><div class="pbar"><div class="pfill" style="width:60%;background:#2563eb"></div></div><span class="ptxt">60%</span><span class="m-update">09:00</span></div>
+        
+      </div>
+    </div><div class="member ">
+      <div class="m-icon" style="background:#2563eb">レ</div>
+      <div class="m-body">
+        <div class="m-top"><span class="m-name">レン</span><span class="badge" style="--bc:#f59e0b">待機中</span><span class="eta eta-unknown">不明</span></div>
+        <div class="m-task">Chatwork API連携の実装</div>
+        <div class="m-prow"><div class="pbar"><div class="pfill" style="width:10%;background:#2563eb"></div></div><span class="ptxt">10%</span><span class="m-update">昨日</span></div>
+        <div class="blocker">進捗報告なし</div>
+      </div>
+    </div><div class="member ">
+      <div class="m-icon" style="background:#2563eb">ル</div>
+      <div class="m-body">
+        <div class="m-top"><span class="m-name">ルイ</span><span class="badge" style="--bc:#22c55e">作業中</span><span class="eta eta-later">あと1時間</span></div>
+        <div class="m-task">請求書LINE提出→OCR→記入テスト</div>
+        <div class="m-prow"><div class="pbar"><div class="pfill" style="width:50%;background:#2563eb"></div></div><span class="ptxt">50%</span><span class="m-update">09:00</span></div>
+        
+      </div>
+    </div></div>
+  </div><div class="team">
+    <div class="t-head" style="background:linear-gradient(135deg,#065f46,#059669)">
+      <div class="t-label">TEAM 02 — ReC</div>
+      <div class="t-donut"><svg width="80" height="80" viewBox="0 0 80 80">
+    <circle cx="40" cy="40" r="34" fill="none" stroke="#1e293b" stroke-width="8"/>
+    <circle cx="40" cy="40" r="34" fill="none" stroke="rgba(255,255,255,0.9)" stroke-width="8" stroke-dasharray="213.62830044410595" stroke-dashoffset="158.0849423286384" stroke-linecap="round" transform="rotate(-90 40 40)" class="donut-ring"/>
+    <text x="40" y="44" text-anchor="middle" fill="#f8fafc" font-size="16" font-weight="700">26%</text>
+  </svg></div>
+      <div class="t-eta">全完了まで <span class="eta eta-soon">あと10分</span></div>
+      <div class="t-leader">
+        <span class="t-leader-name">ダイ</span>
+        <span class="t-leader-role">責任者</span>
+      </div>
+      <div class="t-leader-task">提案書v2微修正→翔伍さんに最終提出</div>
+      <div class="t-leader-meta"><span class="badge" style="--bc:#22c55e">作業中</span> <span class="eta eta-soon">あと10分</span></div>
+    </div>
+    <div class="members"><div class="member ">
+      <div class="m-icon" style="background:#059669">カ</div>
+      <div class="m-body">
+        <div class="m-top"><span class="m-name">カイ</span><span class="badge" style="--bc:#f59e0b">待機中</span><span class="eta eta-unknown">不明</span></div>
+        <div class="m-task">タブのカラム構成確認</div>
+        <div class="m-prow"><div class="pbar"><div class="pfill" style="width:5%;background:#059669"></div></div><span class="ptxt">5%</span><span class="m-update">昨日</span></div>
+        
+      </div>
+    </div><div class="member ">
+      <div class="m-icon" style="background:#059669">ハ</div>
+      <div class="m-body">
+        <div class="m-top"><span class="m-name">ハル</span><span class="badge" style="--bc:#f59e0b">待機中</span><span class="eta eta-unknown">不明</span></div>
+        <div class="m-task">タブのカラム構成確認</div>
+        <div class="m-prow"><div class="pbar"><div class="pfill" style="width:5%;background:#059669"></div></div><span class="ptxt">5%</span><span class="m-update">昨日</span></div>
+        
+      </div>
+    </div><div class="member ">
+      <div class="m-icon" style="background:#059669">ア</div>
+      <div class="m-body">
+        <div class="m-top"><span class="m-name">アオ</span><span class="badge" style="--bc:#f59e0b">待機中</span><span class="eta eta-unknown">不明</span></div>
+        <div class="m-task">タブのカラム構成確認</div>
+        <div class="m-prow"><div class="pbar"><div class="pfill" style="width:5%;background:#059669"></div></div><span class="ptxt">5%</span><span class="m-update">昨日</span></div>
+        
+      </div>
+    </div><div class="member new-member">
+      <div class="m-icon" style="background:#334155">+</div>
+      <div class="m-body">
+        <div class="m-top"><span class="m-name">新規①</span><span class="badge" style="--bc:#64748b">未配属</span><span class="eta eta-unknown">不明</span></div>
+        <div class="m-task">—</div>
+        <div class="m-prow"><div class="pbar"><div class="pfill" style="width:0%;background:#059669"></div></div><span class="ptxt">0%</span><span class="m-update">—</span></div>
+        
+      </div>
+    </div></div>
+  </div><div class="team">
+    <div class="t-head" style="background:linear-gradient(135deg,#9a3412,#ea580c)">
+      <div class="t-label">TEAM 03 — 自社</div>
+      <div class="t-donut"><svg width="80" height="80" viewBox="0 0 80 80">
+    <circle cx="40" cy="40" r="34" fill="none" stroke="#1e293b" stroke-width="8"/>
+    <circle cx="40" cy="40" r="34" fill="none" stroke="rgba(255,255,255,0.9)" stroke-width="8" stroke-dasharray="213.62830044410595" stroke-dashoffset="162.35750833752053" stroke-linecap="round" transform="rotate(-90 40 40)" class="donut-ring"/>
+    <text x="40" y="44" text-anchor="middle" fill="#f8fafc" font-size="16" font-weight="700">24%</text>
+  </svg></div>
+      <div class="t-eta">全完了まで <span class="eta eta-later">あと2時間30分</span></div>
+      <div class="t-leader">
+        <span class="t-leader-name">コウ</span>
+        <span class="t-leader-role">責任者</span>
+      </div>
+      <div class="t-leader-task">オーガニックタブの自動同期に着手</div>
+      <div class="t-leader-meta"><span class="badge" style="--bc:#22c55e">作業中</span> <span class="eta eta-later">あと1時間30分</span></div>
+    </div>
+    <div class="members"><div class="member ">
+      <div class="m-icon" style="background:#ea580c">タ</div>
+      <div class="m-body">
+        <div class="m-top"><span class="m-name">タク</span><span class="badge" style="--bc:#22c55e">作業中</span><span class="eta eta-later">あと2時間30分</span></div>
+        <div class="m-task">レベシェアタブの同期設計</div>
+        <div class="m-prow"><div class="pbar"><div class="pfill" style="width:15%;background:#ea580c"></div></div><span class="ptxt">15%</span><span class="m-update">09:00</span></div>
+        
+      </div>
+    </div><div class="member ">
+      <div class="m-icon" style="background:#ea580c">ケ</div>
+      <div class="m-body">
+        <div class="m-top"><span class="m-name">ケイ</span><span class="badge" style="--bc:#f59e0b">待機中</span><span class="eta eta-unknown">不明</span></div>
+        <div class="m-task">タブのカラム構成確認</div>
+        <div class="m-prow"><div class="pbar"><div class="pfill" style="width:5%;background:#ea580c"></div></div><span class="ptxt">5%</span><span class="m-update">昨日</span></div>
+        
+      </div>
+    </div><div class="member ">
+      <div class="m-icon" style="background:#ea580c">ジ</div>
+      <div class="m-body">
+        <div class="m-top"><span class="m-name">ジン</span><span class="badge" style="--bc:#f59e0b">待機中</span><span class="eta eta-unknown">不明</span></div>
+        <div class="m-task">タブのカラム構成確認</div>
+        <div class="m-prow"><div class="pbar"><div class="pfill" style="width:5%;background:#ea580c"></div></div><span class="ptxt">5%</span><span class="m-update">昨日</span></div>
+        
+      </div>
+    </div><div class="member new-member">
+      <div class="m-icon" style="background:#334155">+</div>
+      <div class="m-body">
+        <div class="m-top"><span class="m-name">新規②</span><span class="badge" style="--bc:#64748b">未配属</span><span class="eta eta-unknown">不明</span></div>
+        <div class="m-task">—</div>
+        <div class="m-prow"><div class="pbar"><div class="pfill" style="width:0%;background:#ea580c"></div></div><span class="ptxt">0%</span><span class="m-update">—</span></div>
+        
+      </div>
+    </div></div>
+  </div><div class="team">
+    <div class="t-head" style="background:linear-gradient(135deg,#6b21a8,#9333ea)">
+      <div class="t-label">TEAM 04 — ナレッジ</div>
+      <div class="t-donut"><svg width="80" height="80" viewBox="0 0 80 80">
+    <circle cx="40" cy="40" r="34" fill="none" stroke="#1e293b" stroke-width="8"/>
+    <circle cx="40" cy="40" r="34" fill="none" stroke="rgba(255,255,255,0.9)" stroke-width="8" stroke-dasharray="213.62830044410595" stroke-dashoffset="211.4920174396649" stroke-linecap="round" transform="rotate(-90 40 40)" class="donut-ring"/>
+    <text x="40" y="44" text-anchor="middle" fill="#f8fafc" font-size="16" font-weight="700">1%</text>
+  </svg></div>
+      <div class="t-eta">全完了まで <span class="eta eta-later">あと2時間30分</span></div>
+      <div class="t-leader">
+        <span class="t-leader-name">ソラ</span>
+        <span class="t-leader-role">責任者</span>
+      </div>
+      <div class="t-leader-task">ナレッジ30件の分類・各部門への展開設計</div>
+      <div class="t-leader-meta"><span class="badge" style="--bc:#22c55e">作業中</span> <span class="eta eta-later">あと2時間</span></div>
+    </div>
+    <div class="members"><div class="member ">
+      <div class="m-icon" style="background:#9333ea">ミ</div>
+      <div class="m-body">
+        <div class="m-top"><span class="m-name">ミナ</span><span class="badge" style="--bc:#22c55e">作業中</span><span class="eta eta-later">あと2時間30分</span></div>
+        <div class="m-task">参考資料のナレッジを読み解き→部門別に整理</div>
+        <div class="m-prow"><div class="pbar"><div class="pfill" style="width:0%;background:#9333ea"></div></div><span class="ptxt">0%</span><span class="m-update">09:45</span></div>
+        
+      </div>
+    </div><div class="member ">
+      <div class="m-icon" style="background:#9333ea">ナ</div>
+      <div class="m-body">
+        <div class="m-top"><span class="m-name">ナオ</span><span class="badge" style="--bc:#f59e0b">待機中</span><span class="eta eta-unknown">不明</span></div>
+        <div class="m-task">LEC・ReCチームに活用可能なナレッジを配布</div>
+        <div class="m-prow"><div class="pbar"><div class="pfill" style="width:0%;background:#9333ea"></div></div><span class="ptxt">0%</span><span class="m-update">09:45</span></div>
+        
+      </div>
+    </div><div class="member ">
+      <div class="m-icon" style="background:#9333ea">マ</div>
+      <div class="m-body">
+        <div class="m-top"><span class="m-name">マコ</span><span class="badge" style="--bc:#f59e0b">待機中</span><span class="eta eta-unknown">不明</span></div>
+        <div class="m-task">自社チームに活用可能なナレッジを配布</div>
+        <div class="m-prow"><div class="pbar"><div class="pfill" style="width:0%;background:#9333ea"></div></div><span class="ptxt">0%</span><span class="m-update">09:45</span></div>
+        
+      </div>
+    </div><div class="member new-member">
+      <div class="m-icon" style="background:#334155">+</div>
+      <div class="m-body">
+        <div class="m-top"><span class="m-name">新規③</span><span class="badge" style="--bc:#64748b">未配属</span><span class="eta eta-unknown">不明</span></div>
+        <div class="m-task">—</div>
+        <div class="m-prow"><div class="pbar"><div class="pfill" style="width:0%;background:#9333ea"></div></div><span class="ptxt">0%</span><span class="m-update">—</span></div>
+        
+      </div>
+    </div></div>
+  </div></div>
+
+  <div class="sidebar">
+    <!-- 全体進捗 -->
+    <div class="panel overall">
+      <div class="panel-title">全体進捗</div>
+      <svg width="120" height="120" viewBox="0 0 80 80">
+    <circle cx="40" cy="40" r="34" fill="none" stroke="#1e293b" stroke-width="8"/>
+    <circle cx="40" cy="40" r="34" fill="none" stroke="#22c55e" stroke-width="8" stroke-dasharray="213.62830044410595" stroke-dashoffset="164.49379134196158" stroke-linecap="round" transform="rotate(-90 40 40)" class="donut-ring"/>
+    <text x="40" y="44" text-anchor="middle" fill="#f8fafc" font-size="16" font-weight="700">23%</text>
+  </svg>
+      <div class="overall-label">17名の平均</div>
+      <div class="overall-eta">全完了まで 3時間</div>
+      <div class="overall-eta-sub">最も時間がかかるタスク基準</div>
+    </div>
+
+    <!-- チーム別進捗 -->
+    <div class="panel">
+      <div class="panel-title">チーム別進捗</div>
+      <div class="tbar">
+          <div class="tbar-top"><span class="tbar-name">LEC</span><span class="tbar-eta"><span class="eta eta-later">あと3時間</span></span></div>
+          <div class="tbar-bar"><div class="tbar-fill" style="width:36%;background:#2563eb"></div></div>
+          <div class="tbar-pct">36%</div>
+        </div><div class="tbar">
+          <div class="tbar-top"><span class="tbar-name">ReC</span><span class="tbar-eta"><span class="eta eta-soon">あと10分</span></span></div>
+          <div class="tbar-bar"><div class="tbar-fill" style="width:26%;background:#059669"></div></div>
+          <div class="tbar-pct">26%</div>
+        </div><div class="tbar">
+          <div class="tbar-top"><span class="tbar-name">自社</span><span class="tbar-eta"><span class="eta eta-later">あと2時間30分</span></span></div>
+          <div class="tbar-bar"><div class="tbar-fill" style="width:24%;background:#ea580c"></div></div>
+          <div class="tbar-pct">24%</div>
+        </div><div class="tbar">
+          <div class="tbar-top"><span class="tbar-name">ナレッジ</span><span class="tbar-eta"><span class="eta eta-later">あと2時間30分</span></span></div>
+          <div class="tbar-bar"><div class="tbar-fill" style="width:1%;background:#9333ea"></div></div>
+          <div class="tbar-pct">1%</div>
+        </div>
+    </div>
+
+    <!-- アクティビティ -->
+    <div class="panel">
+      <div class="panel-title">アクティビティ</div>
+      <div class="log-item"><span class="log-time">09:30</span><span class="log-who">シン</span><span class="log-action">組織再編：4事業体×責任者体制を確定</span></div><div class="log-item"><span class="log-time">09:00</span><span class="log-who">ヨウ</span><span class="log-action">全16名に本日の指示出し完了</span></div><div class="log-item"><span class="log-time">09:00</span><span class="log-who">ダイ</span><span class="log-action">提案書v2 微修正完了。翔伍さんへ提出準備OK</span></div><div class="log-item"><span class="log-time">昨日 17:15</span><span class="log-who">ヨウ</span><span class="log-action">freeeサイン認証突破（0/O修正）</span></div><div class="log-item"><span class="log-time">昨日 17:05</span><span class="log-who">コウ</span><span class="log-action">契約一覧タブ方式 実装完了</span></div><div class="log-item"><span class="log-time">昨日 16:00</span><span class="log-who">コウ</span><span class="log-action">レベシェアルーティング実装完了</span></div>
+    </div>
+  </div>
+</div>
+
+<p class="footer">node COO_管理/generate_dashboard.js で再生成 | START合同会社</p>
+</body></html>
