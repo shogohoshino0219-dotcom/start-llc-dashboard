@@ -1,0 +1,243 @@
+{
+  "last_updated": "2026-03-28 14:50",
+  "sub_commander": {
+    "name": "ショウ",
+    "role": "副統括",
+    "status": "active",
+    "current_task": "4チーム横断サポート・品質チェック補佐・メンバー質問対応",
+    "progress": 10,
+    "eta_minutes": -1,
+    "last_update": "14:50"
+  },
+  "activity_log": [
+    { "time": "14:50", "who": "シン", "action": "ショウさん（副統括）をチームにジョイン" },
+    { "time": "09:30", "who": "シン", "action": "組織再編：4事業体×責任者体制を確定" },
+    { "time": "09:00", "who": "ヨウ", "action": "全16名に本日の指示出し完了" },
+    { "time": "09:00", "who": "ダイ", "action": "提案書v2 微修正完了。翔伍さんへ提出準備OK" },
+    { "time": "昨日 17:15", "who": "ヨウ", "action": "freeeサイン認証突破（0/O修正）" },
+    { "time": "昨日 17:05", "who": "コウ", "action": "契約一覧タブ方式 実装完了" },
+    { "time": "昨日 16:00", "who": "コウ", "action": "レベシェアルーティング実装完了" }
+  ],
+  "teams": [
+    {
+      "id": "lec",
+      "name": "LEC",
+      "color": "#2563eb",
+      "leader": {
+        "name": "ヨウ",
+        "status": "active",
+        "current_task": "全員への指示出し・進捗管理",
+        "progress": 40,
+        "eta_minutes": 120,
+        "last_update": "09:00"
+      },
+      "members": [
+        {
+          "name": "ユウ",
+          "role": "広告経由",
+          "status": "active",
+          "current_task": "契約一覧タブをソースに広告経由タブの同期実装",
+          "progress": 20,
+          "eta_minutes": 180,
+          "last_update": "09:00",
+          "blockers": ""
+        },
+        {
+          "name": "リク",
+          "role": "GASデプロイ・ブートキャンプ",
+          "status": "active",
+          "current_task": "freeeサイン連携テスト",
+          "progress": 60,
+          "eta_minutes": 45,
+          "last_update": "09:00",
+          "blockers": ""
+        },
+        {
+          "name": "レン",
+          "role": "広告経由進捗",
+          "status": "waiting",
+          "current_task": "Chatwork API連携の実装",
+          "progress": 10,
+          "eta_minutes": -1,
+          "last_update": "昨日",
+          "blockers": "進捗報告なし"
+        },
+        {
+          "name": "ルイ",
+          "role": "経費",
+          "status": "active",
+          "current_task": "請求書LINE提出→OCR→記入テスト",
+          "progress": 50,
+          "eta_minutes": 60,
+          "last_update": "09:00",
+          "blockers": ""
+        }
+      ]
+    },
+    {
+      "id": "rec",
+      "name": "ReC",
+      "color": "#059669",
+      "leader": {
+        "name": "ダイ",
+        "status": "active",
+        "current_task": "提案書v2微修正→翔伍さんに最終提出",
+        "progress": 90,
+        "eta_minutes": 10,
+        "last_update": "09:00"
+      },
+      "members": [
+        {
+          "name": "カイ",
+          "role": "配属予定",
+          "status": "waiting",
+          "current_task": "タブのカラム構成確認",
+          "progress": 5,
+          "eta_minutes": -1,
+          "last_update": "昨日",
+          "blockers": ""
+        },
+        {
+          "name": "ハル",
+          "role": "配属予定",
+          "status": "waiting",
+          "current_task": "タブのカラム構成確認",
+          "progress": 5,
+          "eta_minutes": -1,
+          "last_update": "昨日",
+          "blockers": ""
+        },
+        {
+          "name": "アオ",
+          "role": "配属予定",
+          "status": "waiting",
+          "current_task": "タブのカラム構成確認",
+          "progress": 5,
+          "eta_minutes": -1,
+          "last_update": "昨日",
+          "blockers": ""
+        },
+        {
+          "name": "リョウ",
+          "role": "ReC案件リサーチ＆提案",
+          "status": "active",
+          "current_task": "堀尾さん韓国素材リスト作成・ReC LP改善提案・停止メンバーサポート",
+          "progress": 0,
+          "eta_minutes": 90,
+          "last_update": "16:30",
+          "blockers": ""
+        }
+      ]
+    },
+    {
+      "id": "self",
+      "name": "自社",
+      "color": "#ea580c",
+      "leader": {
+        "name": "コウ",
+        "status": "active",
+        "current_task": "オーガニックタブの自動同期に着手",
+        "progress": 70,
+        "eta_minutes": 90,
+        "last_update": "09:00"
+      },
+      "members": [
+        {
+          "name": "タク",
+          "role": "レベシェア",
+          "status": "active",
+          "current_task": "レベシェアタブの同期設計",
+          "progress": 15,
+          "eta_minutes": 150,
+          "last_update": "09:00",
+          "blockers": ""
+        },
+        {
+          "name": "ケイ",
+          "role": "売掛金",
+          "status": "waiting",
+          "current_task": "タブのカラム構成確認",
+          "progress": 5,
+          "eta_minutes": -1,
+          "last_update": "昨日",
+          "blockers": ""
+        },
+        {
+          "name": "ジン",
+          "role": "AI講座",
+          "status": "waiting",
+          "current_task": "タブのカラム構成確認",
+          "progress": 5,
+          "eta_minutes": -1,
+          "last_update": "昨日",
+          "blockers": ""
+        },
+        {
+          "name": "ヒロ",
+          "role": "GAS自動化・未着手タブ一掃",
+          "status": "active",
+          "current_task": "売掛金タブ・AI講座タブのカラム確認→突合スクリプト設計・実装",
+          "progress": 0,
+          "eta_minutes": 120,
+          "last_update": "16:30",
+          "blockers": ""
+        }
+      ]
+    },
+    {
+      "id": "knowledge",
+      "name": "ナレッジ",
+      "color": "#9333ea",
+      "leader": {
+        "name": "ソラ",
+        "status": "active",
+        "current_task": "ナレッジ30件の分類・各部門への展開設計",
+        "progress": 5,
+        "eta_minutes": 120,
+        "last_update": "09:45"
+      },
+      "members": [
+        {
+          "name": "ミナ",
+          "role": "ナレッジ読解・要約",
+          "status": "active",
+          "current_task": "参考資料のナレッジを読み解き→部門別に整理",
+          "progress": 0,
+          "eta_minutes": 150,
+          "last_update": "09:45",
+          "blockers": ""
+        },
+        {
+          "name": "ナオ",
+          "role": "LEC/ReC向けナレッジ配布",
+          "status": "waiting",
+          "current_task": "LEC・ReCチームに活用可能なナレッジを配布",
+          "progress": 0,
+          "eta_minutes": -1,
+          "last_update": "09:45",
+          "blockers": ""
+        },
+        {
+          "name": "マコ",
+          "role": "自社向けナレッジ配布",
+          "status": "waiting",
+          "current_task": "自社チームに活用可能なナレッジを配布",
+          "progress": 0,
+          "eta_minutes": -1,
+          "last_update": "09:45",
+          "blockers": ""
+        },
+        {
+          "name": "サク",
+          "role": "指示書変換ユニット",
+          "status": "active",
+          "current_task": "翔伍さんの一言指示→7項目テンプレート手順書に変換・配布",
+          "progress": 0,
+          "eta_minutes": 90,
+          "last_update": "16:30",
+          "blockers": ""
+        }
+      ]
+    }
+  ]
+}
