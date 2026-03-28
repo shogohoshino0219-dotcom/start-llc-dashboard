@@ -116,7 +116,20 @@ body{font-family:'Helvetica Neue',Arial,'Hiragino Kaku Gothic ProN',sans-serif;b
   <h1>START合同会社 AIチーム ダッシュボード</h1>
   <p class="sub">4事業体 × 責任者体制 — リアルタイム進捗管理</p>
   <div class="updated"><span class="pulse">●</span> 最終更新: 2026-03-28 14:50</div>
+  <div id="clock" style="margin-top:8px;font-size:22px;font-weight:700;color:#f8fafc;letter-spacing:1px"></div>
+  <div id="date" style="font-size:12px;color:#94a3b8;margin-top:2px"></div>
 </div>
+<script>
+function updateClock(){
+  const now=new Date();
+  const y=now.getFullYear(),mo=String(now.getMonth()+1).padStart(2,'0'),d=String(now.getDate()).padStart(2,'0');
+  const h=String(now.getHours()).padStart(2,'0'),mi=String(now.getMinutes()).padStart(2,'0'),s=String(now.getSeconds()).padStart(2,'0');
+  const days=['日','月','火','水','木','金','土'];
+  document.getElementById('clock').textContent=h+':'+mi+':'+s;
+  document.getElementById('date').textContent=y+'年'+mo+'月'+d+'日（'+days[now.getDay()]+'）';
+}
+updateClock();setInterval(updateClock,1000);
+</script>
 
 <div class="stats">
   <div class="sc"><div class="sc-n">17</div><div class="sc-l">稼働メンバー</div></div>
