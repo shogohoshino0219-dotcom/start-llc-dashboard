@@ -1,0 +1,60 @@
+name: 伝達ボード監視
+
+on:
+  push:
+    paths:
+      - 'board.md'
+
+jobs:
+  check-and-notify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: 新しい指示を検出
+        id: detect
+        run: |
+          # board.mdの差分から新しい伝達事項を抽出
+          DIFF=$(git diff HEAD~1 HEAD -- board.md | grep "^+" | grep -v "^+++" | sed 's/^+//' || true)
+          
+          if [ -z "$DIFF" ]; then
+            echo "has_new=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          
+          # ダァイからゆうさん宛ての指示があるか確認
+          if echo "$DIFF" | grep -q "ダァイ→ゆうさん"; then
+            echo "has_new=true" >> $GITHUB_OUTPUT
+            # 指示内容を抽出（最初の5行まで）
+            INSTRUCTION=$(echo "$DIFF" | head -10 | tr '\n' '\\n')
+            echo "instruction<<EOF" >> $GITHUB_OUTPUT
+            echo "$DIFF" | head -10 >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+          else
+            echo "has_new=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Chatworkに通知
+        if: steps.detect.outputs.has_new == 'true'
+        run: |
+          MESSAGE="[info][title]📋 伝達ボードに新しい指示があります[/title]ダァイからゆうさん宛ての指示が伝達ボードに追加されました。
+
+          --- 内容プレビュー ---
+          ${{ steps.detect.outputs.instruction }}
+          ---
+
+          ゆうさん（Claude Code）のタブを開いて「伝達ボードみて」と伝えてください。[/info]"
+          
+          curl -s -X POST \
+            -H "X-ChatWorkToken: ${{ secrets.CHATWORK_API_TOKEN }}" \
+            -d "body=${MESSAGE}" \
+            "https://api.chatwork.com/v2/rooms/${{ secrets.CHATWORK_ROOM_ID }}/messages"
+
+      - name: ログ出力
+        if: steps.detect.outputs.has_new == 'true'
+        run: |
+          echo "✅ ダァイからの新しい指示を検出し、Chatworkに通知しました"
+          echo "--- 検出内容 ---"
+          echo "${{ steps.detect.outputs.instruction }}"
