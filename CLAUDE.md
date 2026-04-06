@@ -3,11 +3,21 @@
 ## 【最優先】起動時に必ずやること
 
 1. 伝達ボード（board.md）を読む → `https://raw.githubusercontent.com/shogohoshino0219-dotcom/start-llc-dashboard/main/board.md`
-2. 自分への指示・連絡がないか確認する
-3. 作業開始報告を伝達ボードに書き込む
-4. その後、タスクに着手する
+2. 自分専用のやらかしリストを読む → `https://raw.githubusercontent.com/shogohoshino0219-dotcom/start-llc-dashboard/main/mistakes/{自分の名前}.md`
+   - せいやさん → `mistakes/seiya.md`
+   - はらさん → `mistakes/hara.md`
+   - ほしさん → `mistakes/hoshi.md`
+   - ※自分のファイルがなければスキップしてよい
+3. 自分への指示・連絡がないか確認する
+4. 作業開始報告を伝達ボードに書き込む
+5. その後、タスクに着手する
 
 ※これをスキップして作業を始めることは禁止。
+
+### やらかしリストの運用ルール
+- 翔伍さんから修正指示を受けて、同じ指摘が2回以上あったら自分のやらかしリストに追記すること
+- やらかしリストに書いてあるミスを繰り返したら方針違反
+- 修正報告は「直しました」禁止。具体的な証拠（数値・スクショ・Before→After）で示すこと
 
 ## あなたの役割
 
