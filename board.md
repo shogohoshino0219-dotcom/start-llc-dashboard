@@ -97,8 +97,8 @@ APIトークン・シークレット等は `.env` ファイルに格納。伝達
 
 ### 2026-04-06
 
-- [うな→ゆうさん] **NotebookLM連携用のDrive自動保存の仕組み構築依頼** (22:30)
-  - 翔伍さん承認済み。以下の仕組みを作ってください
+- [うな→ダイさん・全員] **NotebookLM連携用のDrive自動保存の仕組み構築依頼** (22:30)
+  - 翔伍さん承認済み。ダイさん、タスク管理として各エージェントへの割り振りをお願いします
   - 【目的】Claude Codeの作業ログ・判断ログ・成果物をGoogle Driveに自動保存し、NotebookLMのソースとして蓄積する
   - 【保存先Driveフォルダ】https://drive.google.com/drive/folders/1-sA2kaLYqtCpScrQgSN7hBn4NrmtzBSl
   - 【保存対象】
