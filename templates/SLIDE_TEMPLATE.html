@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>スライドテンプレート — START合同会社</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/*
+  =============================================
+  START合同会社 スライドテンプレート（型紙）
+  =============================================
+
+  【使い方】
+  このHTML/CSSが全スライドのデザイン基準です。
+  新しいスライドを作るときは、このテンプレートの
+  構造・色・フォント・余白を再現してください。
+
+  【絶対に変えてはいけないもの】
+  - フォント（Noto Serif JP）
+  - 配色（下記カラーパレット）
+  - 余白の比率
+  - テキストの揃え方
+
+  【カラーパレット】
+  背景メイン:    #faf9f7
+  背景ダーク:    #1a1a1f
+  テキスト:      #2a2a2a
+  テキスト白:    #ffffff
+  アクセント:    #9c8455
+  ボーダー:      #e5e2dd
+  サブテキスト:  #6b6b6b
+*/
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Noto Serif JP', serif;
+  background: #f0efed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  padding: 40px;
+}
+
+h2.section-label {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #6b6b6b;
+  letter-spacing: 0.1em;
+  margin-bottom: 8px;
+}
+
+/* ============================================
+   スライド共通スタイル
+   ============================================ */
+.slide {
+  width: 960px;
+  height: 540px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* ============================================
+   タイプA: タイトルスライド（ダーク背景）
+   ============================================ */
+.slide--title {
+  background: #1a1a1f;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 80px 100px;
+}
+
+.slide--title .chapter-label {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #9c8455;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+
+.slide--title .main-title {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 42px;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.4;
+  letter-spacing: 0.03em;
+  margin-bottom: 20px;
+}
+
+.slide--title .subtitle {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #6b6b6b;
+  line-height: 1.6;
+}
+
+.slide--title .accent-line {
+  width: 60px;
+  height: 2px;
+  background: #9c8455;
+  margin-bottom: 24px;
+}
+
+/* ============================================
+   タイプB: コンテンツスライド（ライト背景）
+   ============================================ */
+.slide--content {
+  background: #faf9f7;
+  padding: 60px 80px;
+  display: flex;
+  flex-direction: column;
+}
+
+.slide--content .slide-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 40px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e5e2dd;
+}
+
+.slide--content .slide-number {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 12px;
+  font-weight: 400;
+  color: #9c8455;
+  letter-spacing: 0.1em;
+}
+
+.slide--content .slide-title {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 28px;
+  font-weight: 600;
+  color: #2a2a2a;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+}
+
+.slide--content .slide-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.slide--content .body-text {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 18px;
+  font-weight: 400;
+  color: #2a2a2a;
+  line-height: 1.8;
+  letter-spacing: 0.02em;
+}
+
+.slide--content .body-text + .body-text {
+  margin-top: 16px;
+}
+
+/* 箇条書き */
+.slide--content .bullet-list {
+  list-style: none;
+  padding: 0;
+}
+
+.slide--content .bullet-list li {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 18px;
+  font-weight: 400;
+  color: #2a2a2a;
+  line-height: 1.8;
+  padding-left: 24px;
+  position: relative;
+  margin-bottom: 12px;
+}
+
+.slide--content .bullet-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 12px;
+  width: 8px;
+  height: 8px;
+  background: #9c8455;
+  border-radius: 50%;
+}
+
+/* 強調テキスト */
+.slide--content .highlight {
+  color: #9c8455;
+  font-weight: 600;
+}
+
+/* 補足テキスト */
+.slide--content .note {
+  font-size: 14px;
+  color: #6b6b6b;
+  margin-top: 24px;
+}
+
+/* ============================================
+   タイプC: 2カラムスライド
+   ============================================ */
+.slide--two-col {
+  background: #faf9f7;
+  padding: 60px 80px;
+}
+
+.slide--two-col .slide-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 40px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e5e2dd;
+}
+
+.slide--two-col .slide-number {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 12px;
+  font-weight: 400;
+  color: #9c8455;
+  letter-spacing: 0.1em;
+}
+
+.slide--two-col .slide-title {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 28px;
+  font-weight: 600;
+  color: #2a2a2a;
+}
+
+.slide--two-col .columns {
+  display: flex;
+  gap: 48px;
+  flex: 1;
+}
+
+.slide--two-col .column {
+  flex: 1;
+}
+
+.slide--two-col .column-title {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: #9c8455;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e5e2dd;
+}
+
+.slide--two-col .column-text {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 16px;
+  color: #2a2a2a;
+  line-height: 1.8;
+}
+
+/* ============================================
+   フッター（全スライド共通）
+   ============================================ */
+.slide-footer {
+  position: absolute;
+  bottom: 20px;
+  right: 40px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 11px;
+  color: #6b6b6b;
+  letter-spacing: 0.05em;
+}
+
+.slide--title .slide-footer {
+  color: #4a4a4a;
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================
+     テンプレートA: タイトルスライド
+     ============================================ -->
+<h2 class="section-label">テンプレートA — タイトルスライド</h2>
+<div class="slide slide--title">
+  <span class="chapter-label">Chapter 01</span>
+  <div class="accent-line"></div>
+  <h1 class="main-title">オンライン秘書とは？</h1>
+  <p class="subtitle">第1章　マインドセット・役割の理解</p>
+  <div class="slide-footer">START LLC — Online Secretary Course</div>
+</div>
+
+<!-- ============================================
+     テンプレートB: コンテンツスライド（箇条書き）
+     ============================================ -->
+<h2 class="section-label">テンプレートB — コンテンツスライド</h2>
+<div class="slide slide--content">
+  <div class="slide-header">
+    <span class="slide-number">01</span>
+    <h2 class="slide-title">経営者が秘書に求めている価値</h2>
+  </div>
+  <div class="slide-body">
+    <p class="body-text">オンライン秘書に経営者が本当に求めているのは：</p>
+    <ul class="bullet-list">
+      <li><span class="highlight">時間の創出</span> — 自分がやらなくていい仕事を任せたい</li>
+      <li><span class="highlight">安心感</span> — 任せても大丈夫だという信頼</li>
+      <li><span class="highlight">先回り</span> — 言われる前に気づいて動ける力</li>
+    </ul>
+    <p class="note">※ スキルよりも「姿勢」が評価されるポジションです</p>
+  </div>
+  <div class="slide-footer">START LLC — Online Secretary Course</div>
+</div>
+
+<!-- ============================================
+     テンプレートC: 2カラムスライド
+     ============================================ -->
+<h2 class="section-label">テンプレートC — 2カラムスライド</h2>
+<div class="slide slide--two-col">
+  <div class="slide-header">
+    <span class="slide-number">02</span>
+    <h2 class="slide-title">比較：一般事務 vs オンライン秘書</h2>
+  </div>
+  <div class="columns">
+    <div class="column">
+      <h3 class="column-title">一般事務</h3>
+      <p class="column-text">
+        決められた業務をこなす<br>
+        指示を待って動く<br>
+        オフィスに出社が前提<br>
+        定型業務が中心
+      </p>
+    </div>
+    <div class="column">
+      <h3 class="column-title">オンライン秘書</h3>
+      <p class="column-text">
+        経営者の右腕として動く<br>
+        先回りして提案する<br>
+        場所を選ばず働ける<br>
+        柔軟な対応力が必要
+      </p>
+    </div>
+  </div>
+  <div class="slide-footer">START LLC — Online Secretary Course</div>
+</div>
+
+</body>
+</html>
