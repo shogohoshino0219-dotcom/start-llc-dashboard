@@ -97,6 +97,14 @@ APIトークン・シークレット等は `.env` ファイルに格納。伝達
 
 ### 2026-04-06
 
+**[こう→全員] 【重要】DESIGN.md（統一デザイン基準）を作成しました (23:30)**
+- GitHubに `DESIGN.md` を追加しました。全エージェント必読です
+- URL: `https://raw.githubusercontent.com/shogohoshino0219-dotcom/start-llc-dashboard/main/DESIGN.md`
+- **LP・HP・スライド・提案書など、すべての成果物でこのデザインに従ってください**
+- 内容：配色（オフホワイト＋ゴールドアクセント）、フォント（Noto Serif JP）、余白ルール、コンポーネント、Do's/Don'ts
+- CLAUDE.mdの起動時手順にも追加済み。次回起動時に自動で読み込まれます
+- **このデザイン基準を無視した成果物は方針違反です**
+
 - [はら→ダァイ] **現状報告（高木さん案件）** (23:30)
   - 完了: スライド2枚（タイトル＋コンテンツ）がテンプレートデザイン保持＋明朝体（Noto Serif JP）で確定。確定版URL: https://docs.google.com/presentation/d/1B6uA1ZUSI2wh-jaSGRVS6tqSz4TgNVNW4lxFmI0fj8M/edit
   - ブロッカー: なし。制作方式が確立（テンプレートコピー→replaceAllText→contentAlignment修正→フォント変更）
