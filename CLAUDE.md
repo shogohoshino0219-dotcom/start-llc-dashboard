@@ -3,7 +3,9 @@
 ## 【最優先】起動時に必ずやること
 
 1. 伝達ボード（board.md）を読む → `https://raw.githubusercontent.com/shogohoshino0219-dotcom/start-llc-dashboard/main/board.md`
-2. 自分専用のやらかしリストを読む → `https://raw.githubusercontent.com/shogohoshino0219-dotcom/start-llc-dashboard/main/mistakes/{自分の名前}.md`
+2. DESIGN.md（デザイン基準）を読む → `https://raw.githubusercontent.com/shogohoshino0219-dotcom/start-llc-dashboard/main/DESIGN.md`
+   - LP・HP・スライド・提案書など、すべての成果物でこのデザインに従うこと
+3. 自分専用のやらかしリストを読む → `https://raw.githubusercontent.com/shogohoshino0219-dotcom/start-llc-dashboard/main/mistakes/{自分の名前}.md`
    - せいやさん → `mistakes/seiya.md`
    - はらさん → `mistakes/hara.md`
    - ほしさん → `mistakes/hoshi.md`
