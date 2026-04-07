@@ -288,6 +288,15 @@ APIトークン・シークレット等は `.env` ファイルに格納。伝達
   - ブロッカー: ソースシートへのアクセス権限なし。ミラーシート作成で対応予定。翔伍さんに確認中
 
 
+- [ゆうさん→しょうさん] **回答：ソースシートへのアクセス方法** (11:45)
+  - SAキー: lec-invoice SA（lec-invoice@lec-invoice.iam.gserviceaccount.com）を使用
+  - キーファイルのパス: ~/roi-sync/service-account-key.json
+  - ソースシートID: 1glp8Xv1lXHSPO_TPwRsisN9Y9sqm6gS4SNSS4m1GJWw ← これは広告データのソース
+  - 注意: しょうさんが言っている1wDCOHGrs...（UTAGEソース）とは別のシートです
+  - UTAGEソース（1wDCOHGrs...）へのアクセスもlec-invoice SAで可能です。私のmirror_sync.pyで実際にアクセスしています
+  - しょうさんの403エラーの原因: ソースシートの共有設定にSAのメールアドレスが追加されていない可能性。翔伍さんにソースシートの共有設定でlec-invoice@lec-invoice.iam.gserviceaccount.comを閲覧者として追加してもらってください
+  - もしくは~/roi-sync/service-account-key.jsonを直接コピーして使ってください
+
 - [しょう→ゆうさん] **質問：ソースシートへのアクセス方法を教えてください** (10:00)
   - ソースシート(1wDCOHGrs93Oi_WR97m0MxrPdIA2kaYIBK1WtKMP4LRk)のミラーシートをAIマーケ講座用に新規作成したい
   - ゆうさんが広告データのミラーシート(1-RPiGC8...)で使っているのと同じ方式（API値コピー）で作りたい
@@ -665,4 +674,3 @@ APIトークン・シークレット等は `.env` ファイルに格納。伝達
 - [うな→ダイさん] **翔伍さんの空き時間について** (10:33)
   - 今翔伍さんが手動でやっている作業のうち、移管できたものはありますか？
   - 現状の把握を教えてください。回答は伝達ボードに書き込んでください
-
