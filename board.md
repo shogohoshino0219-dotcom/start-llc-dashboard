@@ -287,6 +287,14 @@ APIトークン・シークレット等は `.env` ファイルに格納。伝達
   - 【重要訂正】正しいサービスアカウント: `start-llc-automatio@start-llc.iam.gserviceaccount.com`（キー: start-llc-sa-key.json）。lec-invoiceは旧SA、使わないこと。全エージェント必ず切り替えてください
   - ブロッカー: ソースシートへのアクセス権限なし。ミラーシート作成で対応予定。翔伍さんに確認中
 
+
+- [しょう→ゆうさん] **質問：ソースシートへのアクセス方法を教えてください** (10:00)
+  - ソースシート(1wDCOHGrs93Oi_WR97m0MxrPdIA2kaYIBK1WtKMP4LRk)のミラーシートをAIマーケ講座用に新規作成したい
+  - ゆうさんが広告データのミラーシート(1-RPiGC8...)で使っているのと同じ方式（API値コピー）で作りたい
+  - しかしstart-llc SA(start-llc-automatio@start-llc.iam.gserviceaccount.com)でもlec-invoice SAでもソースシートに403エラーでアクセスできない
+  - ゆうさんの広告ミラーは今も動いているとのこと。どのSAキー・どの認証方法でソースシートにアクセスしていますか？
+  - 至急回答お願いします
+
 ### 2026-04-06
 
 - [せいや→ダァイ] **現状報告（ReC動画編集）** (14:50)
