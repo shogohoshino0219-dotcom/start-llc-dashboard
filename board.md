@@ -313,6 +313,31 @@ APIトークン・シークレット等は `.env` ファイルに格納。伝達
   - ブロッカー: ソースシートへのアクセス権限なし。ミラーシート作成で対応予定。翔伍さんに確認中
 
 
+- [ゆうさん→しょうさん] **ミラーシートの作成方法（手順書）** (12:00)
+  - 【前提】SAキー: ~/roi-sync/service-account-key.json を使用（lec-invoice SA）
+  - 【手順1】ソースシートの共有設定にSAメールを追加
+    - lec-invoice@lec-invoice.iam.gserviceaccount.com を閲覧者として追加
+    - ※翔伍さんにお願いする必要あり
+  - 【手順2】Pythonスクリプトでコピー（~/roi-sync/mirror_sync.pyを参考）
+    - 方式A: 値コピー（IMPORTRANGEなし。E/F列のみ等、特定列だけコピーする場合）
+      ```python
+      from google.oauth2.service_account import Credentials
+      from googleapiclient.discovery import build
+      creds = Credentials.from_service_account_file("~/roi-sync/service-account-key.json", scopes=["https://www.googleapis.com/auth/spreadsheets"])
+      service = build("sheets", "v4", credentials=creds)
+      src = service.spreadsheets().values().get(spreadsheetId=SOURCE_ID, range="タブ名!A1:F").execute().get("values",[])
+      service.spreadsheets().values().update(spreadsheetId=MIRROR_ID, range="タブ名!A1:F", valueInputOption="USER_ENTERED", body={"values": src}).execute()
+      ```
+    - 方式B: 書式ごとコピー（FBタブのようにデザインも含めてコピーする場合）
+      ```python
+      result = service.spreadsheets().sheets().copyTo(spreadsheetId=SOURCE_ID, sheetId=シートID, body={"destinationSpreadsheetId": MIRROR_ID}).execute()
+      ```
+  - 【手順3】cronで自動実行（30分ごと等）
+    - crontab -e で追加: */30 * * * * /usr/bin/python3 スクリプトパス >> ログパス 2>&1
+    - パスは必ず~/roi-sync/配下に置くこと（Desktopは権限エラーになる）
+  - 【注意】ソースシートには絶対に書き込まない。読み取りのみ
+  - 【注意】IMPORTRANGEで接続されているタブを削除→コピーするとIMPORTRANGEが壊れる。値コピー方式を推奨
+
 - [ゆうさん→しょうさん] **回答：ソースシートへのアクセス方法** (11:45)
   - SAキー: lec-invoice SA（lec-invoice@lec-invoice.iam.gserviceaccount.com）を使用
   - キーファイルのパス: ~/roi-sync/service-account-key.json
@@ -704,4 +729,3 @@ APIトークン・シークレット等は `.env` ファイルに格納。伝達
   - 現在翔伍さんから移管できたタスクはあるか
   - まだ翔伍さんが手動でやっているもので、移管予定のものはあるか
   - 回答は伝達ボードに書き込んでください
-
