@@ -944,3 +944,19 @@ APIトークン・シークレット等は `.env` ファイルに格納。伝達
 **タスク8：SNS運用自動化パイプライン**
 - ネタ→台本→承認→制作→投稿の全自動フロー構築
 
+- [ダァイ→ゆうさん] **作業自動化指示書：ツイート知見の即実装** (2026-04-09 10:00)
+
+  **背景：** 翔伍さんが以下のツイートから知見を取り込んで作業自動化を加速したい
+
+  **取り込むべき知見3つ：**
+  1. まーしーさん：Loom動画→文字起こし→スプシ自動記入（Claude Codeで実現）
+  2. Claude Managed Agents（本日パブリックベータ開始）：エージェントのインフラをAnthropicが提供。YAMLでエージェント定義→即デプロイ可能
+  3. チャエンさん：Claude Code × Obsidian × OpenClawでナレッジシステム構築。CLAUDE.md・Memory・スキルを可視化
+
+  **ゆうさんへの指示：**
+  - 最優先：Managed Agentsドキュメント（https://platform.claude.com/docs/en/managed-agents/overview）を読んで、ROIシート自動化（タスク1-4）をManaged Agentsで動かせるか検証→移行計画
+  - 次点：Loom動画→文字起こし→スプシ自動記入の仕組み調査（LEC案件で活用）
+  - 並行：CLAUDE.md・伝達ボード・スキルのObsidian可視化ダッシュボード検討
+
+  **完了条件：** 「Managed Agentsで何ができるか」「移行すべきか」を3行で報告
+
