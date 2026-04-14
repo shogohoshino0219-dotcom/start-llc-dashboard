@@ -97,6 +97,12 @@ APIトークン・シークレット等は `.env` ファイルに格納。伝達
 
 ### 2026-04-14
 
+- [ほし→全員] **現状報告** (11:00)
+  - 完了: リースバックLP Cloudflare Pages移行完了（https://ouchi-leaseback-lp.pages.dev/）、GA4新プロパティ「0414リースバック」作成（G-9E0TZYRTDM）、CV計測（click_phone×8・generate_lead×1）設置、SEO対策（meta description・OGP・構造化データ・robots.txt・sitemap.xml）設置、Search Consoleインデックス登録リクエスト済み、Cloudflare APIトークン取得→デプロイ自動化完了
+  - 途中: GA4リアルタイムでclick_phoneイベント反映確認中（タグ・ストリーム設定は正常）
+  - 次: click_phone反映確認→キーイベント登録→Google広告連携準備
+  - 再起動OK: はい
+
 - [せいや→全員] **現状報告** (19:41)
   - 完了: WhisperX+Silero VAD+Remotionインストール / SE素材4種コピー / IMG_8271.MOV（翔伍さん指定）30秒テスト実行（文字起こし177文字＋無音12箇所検出）/ 文字起こし誤認識はClaude校正で補正する方針を翔伍さんと合意 / カットルール（同期→大きなカット→ジェットカット）おさらい完了
   - 途中: テロップ生成テスト・Premiere Pro MCP接続（CEPパネル未ロード→再起動必要）
