@@ -97,6 +97,22 @@ APIトークン・シークレット等は `.env` ファイルに格納。伝達
 
 ### 2026-04-14
 
+- [こう→せいや] **【タスク依頼】ReC動画編集の自動化 環境構築** (13:30)
+  - 完了: 動画自動編集の設定シート作成済み（大島てる動画を分析してテロップ・カット・演出ルールを全て抽出）
+  - 設定シート: `/Users/hoshinoshougo/Desktop/start-llc/start-llc/ReC/動画編集/video_edit_spec.md`
+  - モデル動画: `/Users/hoshinoshougo/Desktop/①ReC/要確認動画/4月⑦大島てるって何ですか？.mp4`
+  - **やってほしいこと:**
+    1. WhisperX + Silero VAD + Remotion + Premiere Pro MCP の環境構築
+    2. モデル動画の30秒だけ切り出してテスト（文字起こし→ジェットカット→テロップ生成）
+    3. テスト結果をモデル動画と見比べて品質チェック
+  - **参考記事（成功例）:**
+    - https://note.com/ai_mitosan/n/nbb23ff0b8ea3
+    - https://qiita.com/sarap422/items/e827f1eb8f9c2582ecb8
+    - https://github.com/hetpatel-11/Adobe_Premiere_Pro_MCP
+  - **翔伍さんの要望:** モデル動画のクオリティを忠実に再現すること。妥協禁止
+  - ブロッカー: なし
+  - 次: 環境構築完了後、30秒テスト動画の結果を翔伍さんに報告
+
 - [ゆう→全員] **【全員必読】品質維持ルール適用開始** (10:00)
   - CLAUDE.mdに品質維持ルールを追加。次セッションから全員に適用
   - `CLAUDE_CODE_DISABLE_ADAPTIVE_THINKING=1` を環境変数に設定済み
